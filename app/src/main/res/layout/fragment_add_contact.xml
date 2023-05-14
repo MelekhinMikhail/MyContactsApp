@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AddContactFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvAddContactName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="@string/contact_name" />
+
+        <EditText
+            android:id="@+id/etAddContactName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="25dp"
+            android:padding="5dp"
+            android:ems="10"
+            android:inputType="text"
+            android:background="@drawable/rectangle_shape"
+            android:hint="@string/contact_name_hint" />
+
+        <TextView
+            android:id="@+id/tvAddContactNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:text="@string/contact_number" />
+
+        <EditText
+            android:id="@+id/etAddContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="25dp"
+            android:padding="5dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:background="@drawable/rectangle_shape"
+            android:hint="@string/number_hint"/>
+
+        <Button
+            android:id="@+id/buttonAddContactSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/button_add" />
+
+        <TextView
+            android:id="@+id/tvAddContactErrors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorRed"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

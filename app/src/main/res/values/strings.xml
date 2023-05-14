@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">MyContactsApp</string>
+    <string name="login_activity_label">Вход в приложение</string>
+    <string name="login_hint">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="login_button">ВОЙТИ</string>
+    <string name="author">Мелехин Михаил РИБО-01-21</string>
+    <string name="contacts">Контакты</string>
+    <string name="add_contact">Добавить контакт</string>
+    <string name="import_contacts">Импортировать контакты</string>
+    <string name="synchronize">Синхронизировать</string>
+    <string name="logout">Выйти</string>
+    <string name="about_us">О приложении</string>
+    <string name="more">Ещё</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ask_logout">Вы действительно хотите выйти?</string>
+    <string name="logout_button">ВЫЙТИ</string>
+    <string name="contact_name_hint">Имя контакта</string>
+    <string name="number_hint">Номер</string>
+    <string name="button_add">ДОБАВИТЬ</string>
+    <string name="contact_name">Имя контакта:</string>
+    <string name="contact_number">Номер телефона:</string>
+    <string name="update_name">ИЗМЕНИТЬ ИМЯ</string>
+    <string name="add_number">Добавить номер</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="phone_number_example">+79998887766</string>
+    <string name="type">Тип:</string>
+    <string name="button_update">ОБНОВИТЬ</string>
+    <string name="name_contact">Имя контакта</string>
+    <string name="name_example">Иванов Иван Иванович</string>
+    <string-array name="phone_type">
+        <item>НЕ УКАЗАН</item>
+        <item>ДОМАШНИЙ</item>
+        <item>РАБОЧИЙ</item>
+        <item>СОТОВЫЙ</item>
+    </string-array>
+</resources>

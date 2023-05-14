@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuContacts"
+        android:icon="@drawable/ic_contacts"
+        android:title="@string/contacts" />
+
+    <item android:id="@+id/menuAddContact"
+        android:icon="@drawable/ic_add_contact"
+        android:title="@string/add_contact" />
+
+    <item android:id="@+id/menuImportContacts"
+        android:icon="@drawable/ic_import_contacts"
+        android:title="@string/import_contacts" />
+
+    <item android:id="@+id/menuSynchronize"
+        android:icon="@drawable/ic_synchronize"
+        android:title="@string/synchronize" />
+
+    <item android:title="@string/more">
+
+        <menu>
+
+            <item
+                android:id="@+id/menuAbout"
+                android:icon="@drawable/ic_about_us"
+                android:title="@string/about_us" />
+
+            <item
+                android:id="@+id/menuLogOut"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/logout" />
+
+        </menu>
+
+    </item>
+</menu>
