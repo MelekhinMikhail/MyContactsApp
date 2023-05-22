@@ -86,4 +86,14 @@ public class ContactDatabaseOperations {
             realm.commitTransaction();
         }
     }
+
+    public void updateImage(long id, String path) {
+        Realm realm = Realm.getInstance(configuration);
+
+        Contact contact = getContact(id);
+
+        realm.beginTransaction();
+        contact.setImagePath(path);
+        realm.commitTransaction();
+    }
 }

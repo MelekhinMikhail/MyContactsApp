@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,10 +41,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     private static Context context;
     public static List<Contact> contacts;
+    private ContactDatabaseOperations operations;
 
     public ContactAdapter(Context context, List<Contact> contacts) {
         ContactAdapter.context = context;
         ContactAdapter.contacts = contacts;
+        operations = new ContactDatabaseOperations(ConfigRealm.getRealmConfiguration());
     }
 
     @NonNull
@@ -71,6 +74,29 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 //                .error(R.drawable.ic_person)
 //                .placeholder(R.drawable.ic_person).into(holder.contactImageView);
 //        https://habr.com/ru/articles/705064/
+
+        PopupMenu popupMenu = new PopupMenu(context, holder.moreImageView);
+
+        popupMenu.setGravity(Gravity.END);
+        popupMenu.getMenu().add(0, 1, Menu.NONE, "Удалить");
+
+        popupMenu.setOnMenuItemClickListener(x -> {
+            switch (x.getItemId()) {
+                case 1:
+
+                    operations.deleteContact(contacts.get(position).getId());
+                    contacts = operations.getAllContacts();
+                    notifyDataSetChanged();
+
+                    Toast.makeText(context, "Редактируем", Toast.LENGTH_LONG).show();
+                    break;
+            }
+            return true;
+        });
+
+        holder.moreImageView.setOnClickListener(x -> {
+            popupMenu.show();
+        });
     }
 
     @Override
@@ -95,27 +121,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             tvName = itemView.findViewById(R.id.tvItemContactName);
             mainLayout = itemView.findViewById(R.id.mainContentListItem);
             ContactDatabaseOperations operations = new ContactDatabaseOperations(ConfigRealm.getRealmConfiguration());
-            PopupMenu popupMenu = new PopupMenu(context, moreImageView);
 
-            popupMenu.setGravity(Gravity.END);
-            popupMenu.getMenu().add(0, 1, Menu.NONE, "Редактировать");
-            popupMenu.getMenu().add(0, 2, Menu.NONE, "Удалить");
 
-            popupMenu.setOnMenuItemClickListener(x -> {
-                switch (x.getItemId()) {
-                    case 1:
-                        Toast.makeText(itemView.getContext(), "Редактируем", Toast.LENGTH_LONG).show();
-                        break;
-                    case 2:
-                        Toast.makeText(itemView.getContext(), "Удаляем", Toast.LENGTH_LONG).show();
-                        break;
-                }
-                return true;
-            });
 
-            moreImageView.setOnClickListener(x -> {
-                popupMenu.show();
-            });
 
             mainLayout.setOnClickListener(x -> {
                 Toast.makeText(itemView.getContext(), "Переход", Toast.LENGTH_LONG).show();
