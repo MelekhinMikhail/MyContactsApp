@@ -32,6 +32,7 @@ import com.mirea.kt.android2023.mycontactsapp.models.Contact;
 import com.mirea.kt.android2023.mycontactsapp.models.PhoneNumber;
 import com.mirea.kt.android2023.mycontactsapp.models.enums.NumberType;
 import com.mirea.kt.android2023.mycontactsapp.realm.ContactDatabaseOperations;
+import com.mirea.kt.android2023.mycontactsapp.utils.Validator;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -92,6 +93,12 @@ public class ContactsFragment extends Fragment implements ContactAdapter.OnConta
 
             if (number.isEmpty() || name.isEmpty()) {
                 Toast.makeText(view.getContext(), "Все поля должны быть заполнены!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            number = Validator.validateNumber(number);
+            if (number == null) {
+                Toast.makeText(view.getContext(), "Неверный формат номера!", Toast.LENGTH_LONG).show();
                 return;
             }
 

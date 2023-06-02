@@ -33,6 +33,7 @@ import com.mirea.kt.android2023.mycontactsapp.models.enums.NumberType;
 import com.mirea.kt.android2023.mycontactsapp.realm.ContactDatabaseOperations;
 import com.mirea.kt.android2023.mycontactsapp.utils.CircularTransformation;
 import com.mirea.kt.android2023.mycontactsapp.utils.ImageManager;
+import com.mirea.kt.android2023.mycontactsapp.utils.Validator;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -190,6 +191,12 @@ public class ContactInfoActivity extends AppCompatActivity implements NumberAdap
                             return;
                         }
 
+                        number = Validator.validateNumber(number);
+                        if (number == null) {
+                            Toast.makeText(this, "Неверный формат номера!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
                         String type = spinner.getSelectedItem().toString();
                         NumberType numberType;
 
@@ -267,6 +274,12 @@ public class ContactInfoActivity extends AppCompatActivity implements NumberAdap
 
             if (number.isEmpty()) {
                 Toast.makeText(this, "Номер должен быть заполнен!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            number = Validator.validateNumber(number);
+            if (number == null) {
+                Toast.makeText(this, "Неверный формат номера!", Toast.LENGTH_LONG).show();
                 return;
             }
 

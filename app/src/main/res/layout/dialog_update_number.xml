@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogNumberUpdateNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="numberSigned" />
+        android:inputType="number|textPhonetic" />
 
     <TextView
         android:id="@+id/tvDialogTypeUpdateNumber"
