@@ -41,21 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Realm.init(this);
-
-        SharedPreferences preferences = getSharedPreferences(
-                PreferenceManager.getDefaultSharedPreferencesName(getApplicationContext()), MODE_PRIVATE);
-        if (!preferences.contains("first_start")) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("first_start", true);
-            editor.apply();
-        }
-
-        boolean isFirstStart = preferences.getBoolean("first_start", false);
-        if (isFirstStart) {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         ImageView imageMenu = findViewById(R.id.imageMenu);
         NavigationView navigationView = findViewById(R.id.navigationView);

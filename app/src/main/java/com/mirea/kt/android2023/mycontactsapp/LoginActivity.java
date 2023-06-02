@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 import retrofit2.Call;
@@ -42,12 +43,27 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Realm.init(this);
+
         etLogin = findViewById(R.id.etLoginLogin);
         etPassword = findViewById(R.id.etLoginPassword);
         button = findViewById(R.id.buttonLogin);
         tvErrors = findViewById(R.id.tvLoginErrors);
         universityService = UniversityClient.getClient().create(UniversityService.class);
         databaseOperations = new ContactDatabaseOperations();
+
+        SharedPreferences preferences = getSharedPreferences(
+                PreferenceManager.getDefaultSharedPreferencesName(getApplicationContext()), MODE_PRIVATE);
+        if (!preferences.contains("first_start")) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("first_start", true);
+            editor.apply();
+        }
+
+        boolean isFirstStart = preferences.getBoolean("first_start", false);
+        if (!isFirstStart) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
 
         button.setOnClickListener(x -> {
 
@@ -75,8 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                                 int responseResult = jsonObject.getInt("result_code");
                                 if (responseResult == 1) {
 
-                                    SharedPreferences preferences = getSharedPreferences(
-                                            PreferenceManager.getDefaultSharedPreferencesName(getApplicationContext()), MODE_PRIVATE);
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putBoolean("first_start", false);
                                     editor.putString("user_login", login);
