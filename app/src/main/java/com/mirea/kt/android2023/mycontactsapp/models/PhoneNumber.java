@@ -37,9 +37,6 @@ public class PhoneNumber extends RealmObject {
     }
 
     public String getType() {
-//        if (type == null)
-//            return null;
-//        return NumberType.valueOf(type.toUpperCase());
         return type;
     }
 

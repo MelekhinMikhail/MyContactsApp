@@ -4,17 +4,13 @@
         android:icon="@drawable/ic_contacts"
         android:title="@string/contacts" />
 
-    <item android:id="@+id/menuAddContact"
-        android:icon="@drawable/ic_add_contact"
-        android:title="@string/add_contact" />
+    <item android:id="@+id/menuFavoriteContacts"
+        android:icon="@drawable/ic_star"
+        android:title="@string/favorite" />
 
     <item android:id="@+id/menuImportContacts"
         android:icon="@drawable/ic_import_contacts"
         android:title="@string/import_contacts" />
-
-    <item android:id="@+id/menuSynchronize"
-        android:icon="@drawable/ic_synchronize"
-        android:title="@string/synchronize" />
 
     <item android:title="@string/more">
 

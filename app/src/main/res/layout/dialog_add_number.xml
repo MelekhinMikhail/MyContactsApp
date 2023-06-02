@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:paddingVertical="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,6 +23,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="30dp"
+        android:background="@drawable/rectangle_shape"
+        android:paddingHorizontal="8dp"
         android:ems="10"
         android:hint="@string/phone_number_example"
         app:layout_constraintTop_toBottomOf="@id/tvDialogNumberAddNumber"
@@ -54,7 +57,11 @@
         android:id="@+id/buttonAddNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_button"
+        android:textColor="@color/colorWhite"
+        android:paddingHorizontal="20dp"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/blue"
         android:text="@string/button_add"
         app:layout_constraintTop_toBottomOf="@id/spinnerAddNumber"
         app:layout_constraintStart_toStartOf="parent"

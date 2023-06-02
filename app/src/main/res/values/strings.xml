@@ -29,10 +29,17 @@
     <string name="button_update">ОБНОВИТЬ</string>
     <string name="name_contact">Имя контакта</string>
     <string name="name_example">Иванов Иван Иванович</string>
+    <string name="favorite">Избранное</string>
+    <string name="import_header">Импорт контактов из вашего телефона</string>
+    <string name="import_info">Для импорта контактов необходимо приложению разрешить доступ к вашим контактам, если ранее не было это сдлеано</string>
+    <string name="import_button">Импортировать</string>
+    <string name="about_us_text"><b>MyContactsApp</b> это приложение, которое было разработано студентом группы РИБО-01-21 Мелехиным Михаилом Тимофеевичем.\n\n С помощью данного приложения вы можете хранить, добавлять, удалять, редактировать ваши контакты.\n\n В приложении можно импортировать контакты из вашего устройства. \n\nНа данный момент приложение находится в активной разработке, внедряется функция облачного хранения данных.</string>
+    <string name="name">Имя</string>
+    <string name="change">Изменить</string>
     <string-array name="phone_type">
         <item>НЕ УКАЗАН</item>
         <item>ДОМАШНИЙ</item>
         <item>РАБОЧИЙ</item>
-        <item>СОТОВЫЙ</item>
+        <item>МОБИЛЬНЫЙ</item>
     </string-array>
 </resources>

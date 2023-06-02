@@ -17,19 +17,12 @@ import android.widget.Button;
 import com.mirea.kt.android2023.mycontactsapp.LoginActivity;
 import com.mirea.kt.android2023.mycontactsapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class LogoutFragment extends Fragment {
-
-    public LogoutFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_logout, container, false);
 
         Button button = view.findViewById(R.id.buttonLogoutFragment);

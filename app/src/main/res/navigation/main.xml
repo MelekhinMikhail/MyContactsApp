@@ -11,20 +11,15 @@
         android:label="Контакты"
         tools:layout="@layout/fragment_contacts" />
     <fragment
-        android:id="@+id/menuAddContact"
-        android:name="com.mirea.kt.android2023.mycontactsapp.fragments.AddContactFragment"
-        android:label="Добавить контакт"
-        tools:layout="@layout/fragment_add_contact" />
+        android:id="@+id/menuFavoriteContacts"
+        android:name="com.mirea.kt.android2023.mycontactsapp.fragments.FavoriteContactsFragment"
+        android:label="Избранное"
+        tools:layout="@layout/fragment_favorite_contacts" />
     <fragment
         android:id="@+id/menuImportContacts"
         android:name="com.mirea.kt.android2023.mycontactsapp.fragments.ImportContactsFragment"
         android:label="Импортировать контакты"
         tools:layout="@layout/fragment_import_contacts" />
-    <fragment
-        android:id="@+id/menuSynchronize"
-        android:name="com.mirea.kt.android2023.mycontactsapp.fragments.SynchronizeContactsFragment"
-        android:label="Синхронизировать с сервером"
-        tools:layout="@layout/fragment_synchronize_contacts" />
     <fragment
         android:id="@+id/menuAbout"
         android:name="com.mirea.kt.android2023.mycontactsapp.fragments.AboutUsFragment"

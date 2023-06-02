@@ -1,12 +1,7 @@
 package com.mirea.kt.android2023.mycontactsapp.adapters;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,41 +15,37 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.mirea.kt.android2023.mycontactsapp.ContactInfoActivity;
 import com.mirea.kt.android2023.mycontactsapp.R;
-import com.mirea.kt.android2023.mycontactsapp.fragments.ContactInfoFragment;
 import com.mirea.kt.android2023.mycontactsapp.models.Contact;
-import com.mirea.kt.android2023.mycontactsapp.realm.ConfigRealm;
 import com.mirea.kt.android2023.mycontactsapp.realm.ContactDatabaseOperations;
+import com.mirea.kt.android2023.mycontactsapp.utils.CircularTransformation;
+import com.mirea.kt.android2023.mycontactsapp.utils.ImageManager;
+import com.squareup.picasso.Picasso;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
-    private static Context context;
-    public static List<Contact> contacts;
-    private ContactDatabaseOperations operations;
+    public List<Contact> contacts;
+    private OnContactClickListener onContactClickListener;
+    private ImageManager imageManager;
 
-    public ContactAdapter(Context context, List<Contact> contacts) {
-        ContactAdapter.context = context;
-        ContactAdapter.contacts = contacts;
-        operations = new ContactDatabaseOperations(ConfigRealm.getRealmConfiguration());
+    public ContactAdapter(List<Contact> contacts, OnContactClickListener onContactClickListener, String filesDir) {
+        this.contacts = contacts.stream().sorted(Comparator.comparing(Contact::getName)).collect(Collectors.toList());
+        this.onContactClickListener = onContactClickListener;
+        this.imageManager = new ImageManager(filesDir);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list_item, parent, false);
 
-        View view = inflater.inflate(R.layout.contact_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -64,44 +55,47 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         int color = (contact.isFavorite()) ? R.color.yellow : R.color.grey;
 
-        holder.contactImageView.setImageResource(R.drawable.ic_person);
+        if (contact.getImagePath() != null && !contact.getImagePath().equals("none") && !contact.getImagePath().isEmpty()) {
+            if (contact.getImagePath().startsWith("https")) {
+                Picasso.with(holder.itemView.getContext())
+                    .load(contact.getImagePath())
+                    .transform(new CircularTransformation())
+                    .into(holder.contactImageView);
+            } else {
+                holder.contactImageView.setImageBitmap(imageManager.getImage(contact.getImagePath()));
+            }
+        }
+
         holder.tvName.setText(contact.getName());
         holder.favoriteImageView.setColorFilter(
-                ContextCompat.getColor(context, color),
+                ContextCompat.getColor(holder.itemView.getContext(), color),
                 PorterDuff.Mode.SRC_IN
         );
-//        Glide.with(context).load(contact.getImagePath()).circleCrop() // Отрисовка фотографии пользователя с помощью библиотеки Glide
-//                .error(R.drawable.ic_person)
-//                .placeholder(R.drawable.ic_person).into(holder.contactImageView);
-//        https://habr.com/ru/articles/705064/
 
-        PopupMenu popupMenu = new PopupMenu(context, holder.moreImageView);
+        holder.itemView.setOnClickListener(x -> {
+            onContactClickListener.onContactClick(contact, holder.getAdapterPosition());
+        });
 
-        popupMenu.setGravity(Gravity.END);
-        popupMenu.getMenu().add(0, 1, Menu.NONE, "Удалить");
-
-        popupMenu.setOnMenuItemClickListener(x -> {
-            switch (x.getItemId()) {
-                case 1:
-
-                    operations.deleteContact(contacts.get(position).getId());
-                    contacts = operations.getAllContacts();
-                    notifyDataSetChanged();
-
-                    Toast.makeText(context, "Редактируем", Toast.LENGTH_LONG).show();
-                    break;
-            }
-            return true;
+        holder.favoriteImageView.setOnClickListener(x -> {
+            onContactClickListener.onContactFavoriteClick(contact, holder.getAdapterPosition(), holder.favoriteImageView);
         });
 
         holder.moreImageView.setOnClickListener(x -> {
-            popupMenu.show();
+            onContactClickListener.onContactPopupMenuClick(contact, holder.getAdapterPosition(), holder.moreImageView);
         });
     }
 
     @Override
     public int getItemCount() {
         return contacts.size();
+    }
+
+    public interface OnContactClickListener {
+        void onContactClick(Contact contact, int position);
+
+        void onContactPopupMenuClick(Contact contact, int position, View viewItem);
+
+        void onContactFavoriteClick(Contact contact, int position, ImageView imageView);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -120,29 +114,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             moreImageView = itemView.findViewById(R.id.moreImageViewListContact);
             tvName = itemView.findViewById(R.id.tvItemContactName);
             mainLayout = itemView.findViewById(R.id.mainContentListItem);
-            ContactDatabaseOperations operations = new ContactDatabaseOperations(ConfigRealm.getRealmConfiguration());
-
-
-
-
-            mainLayout.setOnClickListener(x -> {
-                Toast.makeText(itemView.getContext(), "Переход", Toast.LENGTH_LONG).show();
-
-                Intent intent = new Intent(context, ContactInfoActivity.class);
-                intent.putExtra("id", String.valueOf(contacts.get(getAdapterPosition()).getId()));
-                context.startActivity(intent);
-            });
-
-            favoriteImageView.setOnClickListener(x -> {
-                Contact contact = contacts.get(getAdapterPosition());
-                contact.setFavorite(!contact.isFavorite());
-                int color = (contact.isFavorite()) ? R.color.yellow : R.color.grey;
-                operations.updateContact(contact.getId(), contact);
-                favoriteImageView.setColorFilter(
-                        ContextCompat.getColor(context, color),
-                        PorterDuff.Mode.SRC_IN
-                );
-            });
         }
     }
 }

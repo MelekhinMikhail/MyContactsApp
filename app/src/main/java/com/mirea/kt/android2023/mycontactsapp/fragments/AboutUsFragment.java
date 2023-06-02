@@ -10,20 +10,7 @@ import android.view.ViewGroup;
 
 import com.mirea.kt.android2023.mycontactsapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AboutUsFragment extends Fragment {
-
-    public AboutUsFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
